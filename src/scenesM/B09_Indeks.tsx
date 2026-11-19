@@ -169,7 +169,7 @@ export const B09_Indeks: React.FC = () => {
       <PixelStamp
         text="BUKAN LAYARNYA"
         x={640}
-        y={624}
+        y={588}
         at={stampAt}
         fontSize={13}
         color={PX.white}
