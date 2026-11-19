@@ -29,8 +29,8 @@ const RIGHT_WALKERS: WalkerSpec[] = [
 export const B10_Gas: React.FC = () => {
   const f = useCurrentFrame();
 
-  const chipAt = medsosLocalF('B10', 124.5);
-  const gasAt = medsosLocalF('B10', 126.4);
+  const chipAt = medsosLocalF('B10', 123.66);
+  const gasAt = medsosLocalF('B10', 125.66);
 
   return (
     <AbsoluteFill>

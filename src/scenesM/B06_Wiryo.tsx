@@ -6,7 +6,7 @@ import {PX, PixelBubble, PixelCard, PixelChip, PixelSprite} from '../components/
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 268;
+const DUR = 261;
 const ACCENT = '#A5E075';
 
 const LEFT_WALKERS: WalkerSpec[] = [
@@ -53,7 +53,7 @@ export const B06_Wiryo: React.FC = () => {
   const portraitY = interpolate(portraitEntrance, [0, 1], [40, 0]);
   const bob = Math.sin(f / 18) * 3;
 
-  const bubbleAt = medsosLocalF('B06', 87.8);
+  const bubbleAt = medsosLocalF('B06', 88.2);
 
   return (
     <AbsoluteFill>

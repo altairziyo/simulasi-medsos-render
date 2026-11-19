@@ -8,7 +8,7 @@ import {PX, PixelChip, PixelSprite, PixelStamp} from '../components/PixelUI';
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 515;
+const DUR = 512;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -38,16 +38,16 @@ const RIGHT_QUEUE: Array<{src: string; x: number; y: number; flipX?: boolean}> =
 export const B11_RamaiMeledak: React.FC = () => {
   const f = useCurrentFrame();
 
-  const cupAt = medsosLocalF('B11', 131.0);
-  const camAt = medsosLocalF('B11', 132.3);
-  const wavesAt = medsosLocalF('B11', 132.8);
-  const chatChipAt = medsosLocalF('B11', 133.0);
-  const viralAt = medsosLocalF('B11', 133.2);
-  const queueBaseAt = medsosLocalF('B11', 134.1);
-  const buyersChipAt = medsosLocalF('B11', 134.6);
-  const coinChipAt = medsosLocalF('B11', 136.7);
-  const nadiaAt = medsosLocalF('B11', 139.1);
-  const followersAt = medsosLocalF('B11', 142.2);
+  const cupAt = medsosLocalF('B11', 130.08);
+  const camAt = medsosLocalF('B11', 131.48);
+  const wavesAt = medsosLocalF('B11', 131.48);
+  const chatChipAt = medsosLocalF('B11', 132.16);
+  const viralAt = medsosLocalF('B11', 132.42);
+  const queueBaseAt = medsosLocalF('B11', 132.42);
+  const buyersChipAt = medsosLocalF('B11', 133.44);
+  const coinChipAt = medsosLocalF('B11', 135.08);
+  const nadiaAt = medsosLocalF('B11', 137.48);
+  const followersAt = medsosLocalF('B11', 140.48);
 
   const followersCount = Math.round(useCount(followersAt, 90, 132));
   const nadiaFrame = Math.floor(f / 6) % 4;

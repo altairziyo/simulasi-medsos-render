@@ -7,7 +7,7 @@ import {PX, PixelCard, PixelChip, PixelSprite, PixelStamp} from '../components/P
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 368;
+const DUR = 349;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -28,9 +28,9 @@ const RIGHT_WALKERS: WalkerSpec[] = [
 ];
 
 const METRICS = [
-  {src: 'icon_koin.png', label: 'UANG', localCx: 105, at: medsosLocalF('B09', 115.4)},
-  {src: 'icon_hati.png', label: 'KESEHATAN', localCx: 320, at: medsosLocalF('B09', 116.2)},
-  {src: 'icon_jabat.png', label: 'RUKUN WARGA', localCx: 535, at: medsosLocalF('B09', 117.2)},
+  {src: 'icon_koin.png', label: 'UANG', localCx: 105, at: medsosLocalF('B09', 113.48)},
+  {src: 'icon_hati.png', label: 'KESEHATAN', localCx: 320, at: medsosLocalF('B09', 115.64)},
+  {src: 'icon_jabat.png', label: 'RUKUN WARGA', localCx: 535, at: medsosLocalF('B09', 116.62)},
 ];
 
 const IconBadgeBox: React.FC<{
@@ -68,11 +68,11 @@ const IconBadgeBox: React.FC<{
 export const B09_Indeks: React.FC = () => {
   const f = useCurrentFrame();
 
-  const titleAt = medsosLocalF('B09', 112.8);
-  const badgeAt = medsosLocalF('B09', 118.4);
-  const phoneOkAt = medsosLocalF('B09', 119.5);
-  const medsosTestAt = medsosLocalF('B09', 121.5);
-  const stampAt = medsosLocalF('B09', 122.4);
+  const titleAt = medsosLocalF('B09', 112.4);
+  const badgeAt = medsosLocalF('B09', 117.78);
+  const phoneOkAt = medsosLocalF('B09', 118.8);
+  const medsosTestAt = medsosLocalF('B09', 120.12);
+  const stampAt = medsosLocalF('B09', 121.66);
 
   const halves = [
     {

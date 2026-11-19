@@ -6,7 +6,7 @@ import {PX, PixelChip, PixelStamp} from '../components/PixelUI';
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 233;
+const DUR = 234;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -29,11 +29,11 @@ const RIGHT_WALKERS: WalkerSpec[] = [
 export const B04_Mulai: React.FC = () => {
   const f = useCurrentFrame();
 
-  const t1 = medsosLocalF('B04', 51.4);
-  const t2 = medsosLocalF('B04', 52.5);
-  const t3 = medsosLocalF('B04', 53.6);
-  const t4 = medsosLocalF('B04', 55.5);
-  const startAt = medsosLocalF('B04', 56.9);
+  const t1 = medsosLocalF('B04', 51.76);
+  const t2 = medsosLocalF('B04', 52.12);
+  const t3 = medsosLocalF('B04', 53.36);
+  const t4 = medsosLocalF('B04', 55.84);
+  const startAt = medsosLocalF('B04', 56.34);
 
   return (
     <AbsoluteFill>

@@ -6,7 +6,7 @@ import {PX, PixelCard, PixelSprite, PixelStamp} from '../components/PixelUI';
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 368;
+const DUR = 371;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -33,9 +33,9 @@ export const B13_Skor2: React.FC = () => {
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
 
-  const scoreAt = medsosLocalF('B13', 160.6);
-  const stampWinAt = medsosLocalF('B13', 167.7);
-  const stampWaitAt = medsosLocalF('B13', 169.5);
+  const scoreAt = medsosLocalF('B13', 159.24);
+  const stampWinAt = medsosLocalF('B13', 166.44);
+  const stampWaitAt = medsosLocalF('B13', 168.52);
 
   const leftScore = Math.round(useCount(scoreAt, 75, 30, 20));
   const rightScore = Math.round(useCount(scoreAt + 12, 75, 38, 20));

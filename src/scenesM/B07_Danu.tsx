@@ -6,7 +6,7 @@ import {PX, PixelBubble, PixelCard, PixelChip, PixelSprite} from '../components/
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 315;
+const DUR = 281;
 const ACCENT = '#6EC6E8';
 
 const LEFT_WALKERS: WalkerSpec[] = [
@@ -35,7 +35,7 @@ const ANNOTATIONS = [
     y: 510,
     tx: 420,
     ty: 470,
-    at: medsosLocalF('B07', 100.1),
+    at: medsosLocalF('B07', 99.1),
   },
 ];
 
@@ -60,9 +60,9 @@ export const B07_Danu: React.FC = () => {
   const portraitY = interpolate(portraitEntrance, [0, 1], [40, 0]);
   const bob = Math.sin(f / 18) * 3;
 
-  const bubbleAt = medsosLocalF('B07', 95.9);
-  const phoneAt = medsosLocalF('B07', 97.0);
-  const liveAt = medsosLocalF('B07', 98.2);
+  const bubbleAt = medsosLocalF('B07', 94.56);
+  const phoneAt = medsosLocalF('B07', 96.58);
+  const liveAt = medsosLocalF('B07', 97.96);
   const liveOpacity = 0.55 + 0.45 * Math.sin(f / 4);
 
   return (

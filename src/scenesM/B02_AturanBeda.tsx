@@ -7,7 +7,7 @@ import {PX, PixelBoard, PixelCard, PixelChip, PixelSprite} from '../components/P
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 518;
+const DUR = 506;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -28,9 +28,9 @@ const RIGHT_WALKERS: WalkerSpec[] = [
 ];
 
 const BANNED_ICONS = [
-  {src: 'prop_ponsel_feed.png', x: 225, xAtSec: 27.5},
-  {src: 'icon_kamera.png', x: 320, xAtSec: 28.6},
-  {src: 'icon_pengikut.png', x: 415, xAtSec: 29.7},
+  {src: 'prop_ponsel_feed.png', x: 225, xAtSec: 26.76},
+  {src: 'icon_kamera.png', x: 320, xAtSec: 28.38},
+  {src: 'icon_pengikut.png', x: 415, xAtSec: 29.42},
 ];
 
 const HEART_XS = [880, 960, 1040];
@@ -38,11 +38,11 @@ const HEART_XS = [880, 960, 1040];
 export const B02_AturanBeda: React.FC = () => {
   const f = useCurrentFrame();
 
-  const leftBoardAt = medsosLocalF('B02', 24.3);
-  const pocketChipAt = medsosLocalF('B02', 30.2);
-  const rightBoardAt = medsosLocalF('B02', 31.8);
-  const feedCardAt = medsosLocalF('B02', 33.5);
-  const followerCount = Math.round(useCount(medsosLocalF('B02', 34.3), 66, 128));
+  const leftBoardAt = medsosLocalF('B02', 24.1);
+  const pocketChipAt = medsosLocalF('B02', 29.42);
+  const rightBoardAt = medsosLocalF('B02', 31.3);
+  const feedCardAt = medsosLocalF('B02', 33.56);
+  const followerCount = Math.round(useCount(medsosLocalF('B02', 33.98), 66, 128));
 
   return (
     <AbsoluteFill>

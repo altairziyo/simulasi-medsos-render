@@ -6,7 +6,7 @@ import {PX, PixelCard, PixelChip, PixelSprite} from '../components/PixelUI';
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 284;
+const DUR = 311;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -50,9 +50,9 @@ export const B08_Nadia: React.FC = () => {
     ? 'nadia_remaja_kanan_portrait_neutral.png'
     : 'nadia_remaja_kanan_portrait_happy.png';
 
-  const t1 = medsosLocalF('B08', 108.4);
-  const t2 = medsosLocalF('B08', 109.6);
-  const t3 = medsosLocalF('B08', 110.6);
+  const t1 = medsosLocalF('B08', 108.12);
+  const t2 = medsosLocalF('B08', 109.28);
+  const t3 = medsosLocalF('B08', 109.7);
 
   const activeChip =
     f >= t3

@@ -6,7 +6,7 @@ import {PX, PixelCard, PixelChip, PixelSprite} from '../components/PixelUI';
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 344;
+const DUR = 375;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -41,10 +41,10 @@ const Q_RIGHT: Array<[number, number]> = [
 export const B03_Tebakan: React.FC = () => {
   const f = useCurrentFrame();
 
-  const topChipAt = medsosLocalF('B03', 40.4);
-  const leftCardAt = medsosLocalF('B03', 44.9);
-  const rightCardAt = medsosLocalF('B03', 47.1);
-  const ctaChipAt = medsosLocalF('B03', 49.3);
+  const topChipAt = medsosLocalF('B03', 39.26);
+  const leftCardAt = medsosLocalF('B03', 44.84);
+  const rightCardAt = medsosLocalF('B03', 46.6);
+  const ctaChipAt = medsosLocalF('B03', 49.8);
   const driftY = Math.sin(f / 40) * 3;
 
   return (
@@ -96,7 +96,7 @@ export const B03_Tebakan: React.FC = () => {
 
       {/* Ikon tanda tanya (3 kiri, 3 kanan) */}
       {Q_LEFT.map(([qx, qy], i) => {
-        const at = medsosLocalF('B03', 41.5 + i * 0.4);
+        const at = medsosLocalF('B03', 40.6 + i * 0.4);
         if (f < at) return null;
         const bobY = Math.sin(f / 9 + i) * 4;
         return (
@@ -106,7 +106,7 @@ export const B03_Tebakan: React.FC = () => {
         );
       })}
       {Q_RIGHT.map(([qx, qy], i) => {
-        const at = medsosLocalF('B03', 41.5 + i * 0.4);
+        const at = medsosLocalF('B03', 40.6 + i * 0.4);
         if (f < at) return null;
         const bobY = Math.sin(f / 9 + i) * 4;
         return (

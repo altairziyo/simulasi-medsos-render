@@ -6,7 +6,7 @@ import {PX, PixelBubble, PixelCard, PixelChip, PixelSprite} from '../components/
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 368;
+const DUR = 375;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -38,10 +38,10 @@ const SUNSET_GRADIENT =
 export const B12_TenangDiam: React.FC = () => {
   const f = useCurrentFrame();
 
-  const rightChipAt = medsosLocalF('B12', 148.0);
-  const bubbleAt = medsosLocalF('B12', 150.1);
-  const boredAt = medsosLocalF('B12', 153.5);
-  const pastChipAt = medsosLocalF('B12', 156.0);
+  const rightChipAt = medsosLocalF('B12', 147.54);
+  const bubbleAt = medsosLocalF('B12', 150.24);
+  const boredAt = medsosLocalF('B12', 153.14);
+  const pastChipAt = medsosLocalF('B12', 154.26);
 
   const sunsetOpacity = interpolate(f, [0, 300], [0, 1], {
     extrapolateLeft: 'clamp',

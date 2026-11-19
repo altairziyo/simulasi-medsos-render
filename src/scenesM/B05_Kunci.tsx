@@ -6,7 +6,7 @@ import {PX, PixelCard, PixelChip, PixelSprite} from '../components/PixelUI';
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 725;
+const DUR = 721;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -36,22 +36,22 @@ type LockItem = {
 };
 
 const LEFT_LOCKS: LockItem[] = [
-  {id: 'warga', label: 'WARGA', value: '100 vs 100', at: medsosLocalF('B05', 64.3), cx: 125, globalIdx: 0},
-  {id: 'lahan', label: 'LAHAN', value: 'SAMA LUAS', at: medsosLocalF('B05', 66.3), cx: 320, globalIdx: 1},
-  {id: 'sungai', label: 'SUNGAI', value: 'SAMA JERNIH', at: medsosLocalF('B05', 67.4), cx: 515, globalIdx: 2},
+  {id: 'warga', label: 'WARGA', value: '100 vs 100', at: medsosLocalF('B05', 64.4), cx: 125, globalIdx: 0},
+  {id: 'lahan', label: 'LAHAN', value: 'SAMA LUAS', at: medsosLocalF('B05', 66.74), cx: 320, globalIdx: 1},
+  {id: 'sungai', label: 'SUNGAI', value: 'SAMA JERNIH', at: medsosLocalF('B05', 68.14), cx: 515, globalIdx: 2},
 ];
 
 const RIGHT_LOCKS: LockItem[] = [
-  {id: 'cuaca', label: 'CUACA', value: 'BARENGAN', at: medsosLocalF('B05', 68.4), cx: 125, globalIdx: 3},
-  {id: 'ponsel', label: 'PONSEL', value: 'SAMA-SAMA PINTAR', at: medsosLocalF('B05', 69.7), cx: 320, globalIdx: 4},
-  {id: 'internet', label: 'INTERNET', value: 'SAMA-SAMA KENCANG', at: medsosLocalF('B05', 71.3), cx: 515, globalIdx: 5},
+  {id: 'cuaca', label: 'CUACA', value: 'BARENGAN', at: medsosLocalF('B05', 69.16), cx: 125, globalIdx: 3},
+  {id: 'ponsel', label: 'PONSEL', value: 'SAMA-SAMA PINTAR', at: medsosLocalF('B05', 69.36), cx: 320, globalIdx: 4},
+  {id: 'internet', label: 'INTERNET', value: 'SAMA-SAMA KENCANG', at: medsosLocalF('B05', 71.16), cx: 515, globalIdx: 5},
 ];
 
 const SERVICES = [
-  {label: 'TELEPON', at: medsosLocalF('B05', 74.4)},
-  {label: 'PESAN', at: medsosLocalF('B05', 75.3)},
-  {label: 'BERITA', at: medsosLocalF('B05', 76.0)},
-  {label: 'JUALAN', at: medsosLocalF('B05', 76.5)},
+  {label: 'TELEPON', at: medsosLocalF('B05', 74.34)},
+  {label: 'PESAN', at: medsosLocalF('B05', 75.06)},
+  {label: 'BERITA', at: medsosLocalF('B05', 76.76)},
+  {label: 'JUALAN', at: medsosLocalF('B05', 77.18)},
 ];
 
 const PadlockIcon: React.FC<{locked: number}> = ({locked}) => {
@@ -167,9 +167,9 @@ export const B05_Kunci: React.FC = () => {
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
 
-  const panelShowAt = medsosLocalF('B05', 73.5);
-  const banAt = medsosLocalF('B05', 78.5);
-  const freeAt = medsosLocalF('B05', 79.7);
+  const panelShowAt = medsosLocalF('B05', 74.12);
+  const banAt = medsosLocalF('B05', 79.04);
+  const freeAt = medsosLocalF('B05', 80.42);
 
   const headerOpacity = interpolate(f, [panelShowAt, panelShowAt + 10], [1, 0], {
     extrapolateLeft: 'clamp',
