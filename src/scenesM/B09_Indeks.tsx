@@ -7,8 +7,11 @@ import {PX, PixelCard, PixelChip, PixelSprite, PixelStamp} from '../components/P
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 349;
+const DUR = 357;
 
+// ATURAN BOS (1 layar): segmen penjelas netral yang isinya sama untuk kedua
+// dunia tampil SATU LAYAR PENUH ala panel penjelas Pemimpin — tidak diduplikasi
+// per separuh. Garis pemisah disembunyikan MedsosVideo selama beat ini.
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
   {id: 'w2', sprite: 'warga_b', path: [[300, 345], [520, 345], [520, 470]], speed: 48, phase: 0.42},
@@ -28,9 +31,9 @@ const RIGHT_WALKERS: WalkerSpec[] = [
 ];
 
 const METRICS = [
-  {src: 'icon_koin.png', label: 'UANG', localCx: 105, at: medsosLocalF('B09', 113.48)},
-  {src: 'icon_hati.png', label: 'KESEHATAN', localCx: 320, at: medsosLocalF('B09', 115.64)},
-  {src: 'icon_jabat.png', label: 'RUKUN WARGA', localCx: 535, at: medsosLocalF('B09', 116.62)},
+  {src: 'icon_koin.png', label: 'UANG', cx: 320, at: medsosLocalF('B09', 121.12)},
+  {src: 'icon_hati.png', label: 'KESEHATAN', cx: 640, at: medsosLocalF('B09', 123)},
+  {src: 'icon_jabat.png', label: 'RUKUN WARGA', cx: 960, at: medsosLocalF('B09', 124.4)},
 ];
 
 const IconBadgeBox: React.FC<{
@@ -68,158 +71,110 @@ const IconBadgeBox: React.FC<{
 export const B09_Indeks: React.FC = () => {
   const f = useCurrentFrame();
 
-  const titleAt = medsosLocalF('B09', 112.4);
-  const badgeAt = medsosLocalF('B09', 117.78);
-  const phoneOkAt = medsosLocalF('B09', 118.8);
-  const medsosTestAt = medsosLocalF('B09', 120.12);
-  const stampAt = medsosLocalF('B09', 121.66);
-
-  const halves = [
-    {
-      side: 'L' as const,
-      offset: 0,
-      cx: 320,
-      medsosText: 'MEDSOS: DIUJI',
-      medsosColor: PX.red,
-    },
-    {
-      side: 'R' as const,
-      offset: 640,
-      cx: 960,
-      medsosText: 'MEDSOS: BEBAS',
-      medsosColor: '#6EC6E8',
-    },
-  ];
+  const titleAt = medsosLocalF('B09', 120);
+  const badgeAt = medsosLocalF('B09', 125.78);
+  const phoneOkAt = medsosLocalF('B09', 126);
+  const stampAt = medsosLocalF('B09', 129.36);
 
   return (
     <AbsoluteFill>
       <TwinMapBg
-        zoomFrom={1.01}
-        zoomTo={1.04}
-        dim={0.5}
+        zoomFrom={1.02}
+        zoomTo={1.12}
+        dim={0.62}
         dur={DUR}
         leftWalkers={LEFT_WALKERS}
         rightWalkers={RIGHT_WALKERS}
       />
 
-      {halves.map((h) => (
-        <React.Fragment key={h.side}>
-          {/* Chip judul */}
-          {f >= titleAt ? (
-            <PopIn at={titleAt} seed={`b09-t-${h.side}`} origin={`${h.cx}px 92px`}>
-              <PixelChip
-                text="YANG KITA UKUR"
-                x={h.cx}
-                y={92}
-                centerX
-                fontSize={12}
-                borderColor={PX.white}
-                color={PX.white}
-              />
-            </PopIn>
-          ) : null}
-
-          {/* Tiga kartu ikon */}
-          {METRICS.map((m) =>
-            f >= m.at ? (
-              <PopIn
-                key={`${h.side}-${m.label}`}
-                at={m.at}
-                seed={`b09-${h.side}-${m.label}`}
-                origin={`${h.offset + m.localCx}px 213px`}
-              >
-                <PixelCard
-                  x={h.offset + m.localCx - 75}
-                  y={150}
-                  w={150}
-                  h={126}
-                  borderColor={PX.gold}
-                  pad="12px"
-                  style={{textAlign: 'center'}}
-                >
-                  <div style={{display: 'flex', justifyContent: 'center', marginTop: 4}}>
-                    <PixelSprite src={m.src} w={44} h={44} />
-                  </div>
-                  <div
-                    style={{
-                      fontSize: 10,
-                      color: PX.goldHi,
-                      marginTop: 8,
-                      lineHeight: 1.35,
-                    }}
-                  >
-                    {m.label}
-                  </div>
-                </PixelCard>
-              </PopIn>
-            ) : null,
-          )}
-
-          {/* Lencana gabungan */}
-          {f >= badgeAt ? (
-            <PopIn at={badgeAt} seed={`b09-idx-${h.side}`} origin={`${h.cx}px 350px`}>
-              <PixelCard
-                x={h.cx}
-                y={350}
-                w={430}
-                center
-                borderColor={PX.gold}
-                pad="18px"
-                style={{textAlign: 'center'}}
-              >
-                <div style={{display: 'flex', justifyContent: 'center', gap: 16}}>
-                  <PixelSprite src="icon_koin.png" w={30} h={30} />
-                  <PixelSprite src="icon_hati.png" w={30} h={30} />
-                  <PixelSprite src="icon_jabat.png" w={30} h={30} />
-                </div>
-                <div style={{fontSize: 14, color: PX.goldHi, marginTop: 12}}>
-                  INDEKS KESEJAHTERAAN
-                </div>
-                <div style={{fontSize: 11, color: PX.gold, marginTop: 8}}>= 1 ANGKA</div>
-              </PixelCard>
-            </PopIn>
-          ) : null}
-
-          {/* Baris penegasan: PONSEL AMAN */}
-          {f >= phoneOkAt ? (
-            <PopIn at={phoneOkAt} seed={`b09-ph-${h.side}`} origin={`${h.cx}px 520px`}>
-              <IconBadgeBox
-                icon="icon_telepon.png"
-                text="PONSEL: AMAN"
-                x={h.cx}
-                y={520}
-                borderColor={PX.green}
-                color={PX.greenHi}
-              />
-            </PopIn>
-          ) : null}
-
-          {/* Baris penegasan: MEDSOS */}
-          {f >= medsosTestAt ? (
-            <PopIn at={medsosTestAt} seed={`b09-ms-${h.side}`} origin={`${h.cx}px 580px`}>
-              <IconBadgeBox
-                icon="icon_kamera.png"
-                text={h.medsosText}
-                x={h.cx}
-                y={580}
-                borderColor={h.medsosColor}
-                color={h.medsosColor}
-              />
-            </PopIn>
-          ) : null}
-
-          {/* Stempel BUKAN LAYARNYA */}
-          <PixelStamp
-            text="BUKAN LAYARNYA"
-            x={h.cx}
-            y={620}
-            at={stampAt}
+      {/* Chip judul — satu, di tengah layar */}
+      {f >= titleAt ? (
+        <PopIn at={titleAt} seed="b09-title" origin="640px 92px">
+          <PixelChip
+            text="YANG KITA UKUR"
+            x={640}
+            y={92}
+            centerX
             fontSize={13}
+            borderColor={PX.white}
             color={PX.white}
-            rot={-2}
           />
-        </React.Fragment>
-      ))}
+        </PopIn>
+      ) : null}
+
+      {/* Tiga kartu ikon — satu baris penuh */}
+      {METRICS.map((m) =>
+        f >= m.at ? (
+          <PopIn key={m.label} at={m.at} seed={`b09-${m.label}`} origin={`${m.cx}px 213px`}>
+            <PixelCard
+              x={m.cx - 85}
+              y={150}
+              w={170}
+              h={126}
+              borderColor={PX.gold}
+              pad="12px"
+              style={{textAlign: 'center'}}
+            >
+              <div style={{display: 'flex', justifyContent: 'center', marginTop: 4}}>
+                <PixelSprite src={m.src} w={44} h={44} />
+              </div>
+              <div style={{fontSize: 10, color: PX.goldHi, marginTop: 8, lineHeight: 1.35}}>
+                {m.label}
+              </div>
+            </PixelCard>
+          </PopIn>
+        ) : null,
+      )}
+
+      {/* Lencana gabungan — satu, di tengah */}
+      {f >= badgeAt ? (
+        <PopIn at={badgeAt} seed="b09-idx" origin="640px 350px">
+          <PixelCard
+            x={640}
+            y={350}
+            w={460}
+            center
+            borderColor={PX.gold}
+            pad="18px"
+            style={{textAlign: 'center'}}
+          >
+            <div style={{display: 'flex', justifyContent: 'center', gap: 16}}>
+              <PixelSprite src="icon_koin.png" w={30} h={30} />
+              <PixelSprite src="icon_hati.png" w={30} h={30} />
+              <PixelSprite src="icon_jabat.png" w={30} h={30} />
+            </div>
+            <div style={{fontSize: 14, color: PX.goldHi, marginTop: 12}}>
+              INDEKS KESEJAHTERAAN
+            </div>
+            <div style={{fontSize: 11, color: PX.gold, marginTop: 8}}>= 1 ANGKA</div>
+          </PixelCard>
+        </PopIn>
+      ) : null}
+
+      {/* Baris penegasan: PONSEL AMAN — satu, di tengah */}
+      {f >= phoneOkAt ? (
+        <PopIn at={phoneOkAt} seed="b09-ph" origin="640px 520px">
+          <IconBadgeBox
+            icon="icon_telepon.png"
+            text="PONSEL: AMAN"
+            x={640}
+            y={520}
+            borderColor={PX.green}
+            color={PX.greenHi}
+          />
+        </PopIn>
+      ) : null}
+
+      {/* Stempel BUKAN LAYARNYA — satu, berjarak aman dari lencana di atasnya */}
+      <PixelStamp
+        text="BUKAN LAYARNYA"
+        x={640}
+        y={624}
+        at={stampAt}
+        fontSize={13}
+        color={PX.white}
+        rot={-2}
+      />
     </AbsoluteFill>
   );
 };

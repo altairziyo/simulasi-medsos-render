@@ -1,12 +1,12 @@
 import React from 'react';
-import {AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Easing, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {SlideIn} from '../lib/paper/kit';
 import {medsosLocalF} from '../medsosPlan';
 import {PX, PixelBubble, PixelCard, PixelChip, PixelSprite} from '../components/PixelUI';
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 261;
+const DUR = 283;
 const ACCENT = '#A5E075';
 
 const LEFT_WALKERS: WalkerSpec[] = [
@@ -36,14 +36,15 @@ export const B06_Wiryo: React.FC = () => {
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
 
-  const bgScale = interpolate(f, [0, DUR], [1.0, 1.10], {
+  const camScale = interpolate(f, [0, DUR], [1.0, 1.09], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
+    easing: Easing.inOut(Easing.sin),
   });
   const blink = f % 100 >= 95;
   const spriteSrc = blink
-    ? 'wiryo_kades_portrait_neutral.png'
-    : 'wiryo_kades_portrait_happy.png';
+    ? 'wiryo_full_neutral.png'
+    : 'wiryo_full_happy.png';
 
   const portraitEntrance = spring({
     frame: f,
@@ -53,13 +54,13 @@ export const B06_Wiryo: React.FC = () => {
   const portraitY = interpolate(portraitEntrance, [0, 1], [40, 0]);
   const bob = Math.sin(f / 18) * 3;
 
-  const bubbleAt = medsosLocalF('B06', 88.2);
+  const bubbleAt = medsosLocalF('B06', 94.22);
 
   return (
     <AbsoluteFill>
       <TwinMapBg
         zoomFrom={1.02}
-        zoomTo={1.06}
+        zoomTo={1.08}
         dim={0.12}
         dur={DUR}
         leftWalkers={LEFT_WALKERS}
@@ -92,33 +93,33 @@ export const B06_Wiryo: React.FC = () => {
           backgroundColor: '#1E1420',
         }}
       >
+        {/* Kamera push-in: backdrop + potret + garis anotasi bergerak bersama */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            transform: `scale(${bgScale.toFixed(4)})`,
-            transformOrigin: '45% 50%',
+            transform: `scale(${camScale.toFixed(4)})`,
+            transformOrigin: '146px 325px',
           }}
         >
           <Img
-            src={staticFile('sprites/bg_sunset_half.png')}
+            src={staticFile('sprites/bg_sunset_half_v2.png')}
             className="pixel-img"
             style={{width: 640, height: 720, objectFit: 'cover', imageRendering: 'pixelated'}}
           />
-        </div>
 
-        {/* Potret Pak Wiryo */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 64,
-            top: 190 + portraitY + bob,
-            width: 240,
-            height: 300,
-          }}
-        >
-          <PixelSprite src={spriteSrc} w={240} h={300} />
-        </div>
+          {/* Potret Pak Wiryo full-body */}
+          <div
+            style={{
+              position: 'absolute',
+              left: 56,
+              top: 140 + portraitY + bob,
+              width: 179,
+              height: 370,
+            }}
+          >
+            <PixelSprite src={spriteSrc} w={179} h={370} />
+          </div>
 
         {/* Garis anotasi SVG (koordinat lokal separuh kiri) */}
         <svg
@@ -155,7 +156,8 @@ export const B06_Wiryo: React.FC = () => {
               </g>
             );
           })}
-        </svg>
+          </svg>
+        </div>
 
         {/* Chip anotasi */}
         {ANNOTATIONS.map((a) =>

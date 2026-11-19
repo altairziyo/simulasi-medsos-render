@@ -1,12 +1,12 @@
 import React from 'react';
-import {AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Easing, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {PopIn, SlideIn} from '../lib/paper/kit';
 import {medsosLocalF} from '../medsosPlan';
 import {PX, PixelBubble, PixelCard, PixelChip, PixelSprite} from '../components/PixelUI';
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 281;
+const DUR = 322;
 const ACCENT = '#6EC6E8';
 
 const LEFT_WALKERS: WalkerSpec[] = [
@@ -35,7 +35,7 @@ const ANNOTATIONS = [
     y: 510,
     tx: 420,
     ty: 470,
-    at: medsosLocalF('B07', 99.1),
+    at: medsosLocalF('B07', 106.4),
   },
 ];
 
@@ -43,14 +43,15 @@ export const B07_Danu: React.FC = () => {
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
 
-  const bgScale = interpolate(f, [0, DUR], [1.0, 1.10], {
+  const camScale = interpolate(f, [0, DUR], [1.0, 1.09], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
+    easing: Easing.inOut(Easing.sin),
   });
   const blink = f % 100 >= 95;
   const spriteSrc = blink
-    ? 'danu_muda_portrait_neutral.png'
-    : 'danu_muda_portrait_happy.png';
+    ? 'danu_full_neutral.png'
+    : 'danu_full_happy.png';
 
   const portraitEntrance = spring({
     frame: f,
@@ -60,16 +61,16 @@ export const B07_Danu: React.FC = () => {
   const portraitY = interpolate(portraitEntrance, [0, 1], [40, 0]);
   const bob = Math.sin(f / 18) * 3;
 
-  const bubbleAt = medsosLocalF('B07', 94.56);
-  const phoneAt = medsosLocalF('B07', 96.58);
-  const liveAt = medsosLocalF('B07', 97.96);
+  const bubbleAt = medsosLocalF('B07', 101.6);
+  const phoneAt = medsosLocalF('B07', 103.9);
+  const liveAt = medsosLocalF('B07', 105.16);
   const liveOpacity = 0.55 + 0.45 * Math.sin(f / 4);
 
   return (
     <AbsoluteFill>
       <TwinMapBg
         zoomFrom={1.02}
-        zoomTo={1.06}
+        zoomTo={1.08}
         dim={0.12}
         dur={DUR}
         leftWalkers={LEFT_WALKERS}
@@ -102,41 +103,48 @@ export const B07_Danu: React.FC = () => {
           backgroundColor: '#1E1420',
         }}
       >
-        <Img
-          src={staticFile('sprites/bg_sunset_half.png')}
-          className="pixel-img"
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            width: 640,
-            height: 720,
-            objectFit: 'cover',
-            imageRendering: 'pixelated',
-            transform: `scaleX(-1) scale(${bgScale.toFixed(4)})`,
-            transformOrigin: '55% 50%',
-          }}
-        />
-
-        {/* Potret Pak Danu */}
+        {/* Kamera push-in: backdrop + potret + prop + garis anotasi bergerak bersama */}
         <div
           style={{
             position: 'absolute',
-            left: 336,
-            top: 190 + portraitY + bob,
-            width: 240,
-            height: 300,
+            inset: 0,
+            transform: `scale(${camScale.toFixed(4)})`,
+            transformOrigin: '420px 325px',
           }}
         >
-          <PixelSprite src={spriteSrc} w={240} h={300} />
-        </div>
+          <Img
+            src={staticFile('sprites/bg_sunset_half_v2b.png')}
+            className="pixel-img"
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              width: 640,
+              height: 720,
+              objectFit: 'cover',
+              imageRendering: 'pixelated',
+            }}
+          />
 
-        {/* Prop ponsel di depan bawah potret */}
-        {f >= phoneAt ? (
-          <PopIn at={phoneAt} seed="danu-phone" origin="432px 502px">
-            <PixelSprite src="prop_ponsel_feed.png" x={400} y={470} w={64} h={64} />
-          </PopIn>
-        ) : null}
+          {/* Potret Pak Danu full-body */}
+          <div
+            style={{
+              position: 'absolute',
+              left: 330,
+              top: 140 + portraitY + bob,
+              width: 179,
+              height: 370,
+            }}
+          >
+            <PixelSprite src={spriteSrc} w={179} h={370} />
+          </div>
+
+          {/* Prop ponsel di dekat tangan potret */}
+          {f >= phoneAt ? (
+            <PopIn at={phoneAt} seed="danu-phone" origin="484px 480px">
+              <PixelSprite src="prop_ponsel_feed.png" x={452} y={448} w={64} h={64} />
+            </PopIn>
+          ) : null}
 
         {/* Garis anotasi SVG (koordinat lokal separuh kanan) */}
         <svg
@@ -173,7 +181,8 @@ export const B07_Danu: React.FC = () => {
               </g>
             );
           })}
-        </svg>
+          </svg>
+        </div>
 
         {/* Chip anotasi */}
         {ANNOTATIONS.map((a) =>
@@ -196,8 +205,8 @@ export const B07_Danu: React.FC = () => {
         {f >= liveAt ? (
           <PixelChip
             text="● LIVE"
-            x={470}
-            y={150}
+            x={505}
+            y={120}
             borderColor={PX.red}
             color={PX.red}
             fontSize={12}

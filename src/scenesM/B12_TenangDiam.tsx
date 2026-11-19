@@ -4,9 +4,10 @@ import {PopIn, RadioWaves} from '../lib/paper/kit';
 import {medsosLocalF} from '../medsosPlan';
 import {PX, PixelBubble, PixelCard, PixelChip, PixelSprite} from '../components/PixelUI';
 import {TwinMapBg} from '../components/TwinMapBg';
+import {NameMark} from '../components/NameMark';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 375;
+const DUR = 401;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -38,10 +39,11 @@ const SUNSET_GRADIENT =
 export const B12_TenangDiam: React.FC = () => {
   const f = useCurrentFrame();
 
-  const rightChipAt = medsosLocalF('B12', 147.54);
-  const bubbleAt = medsosLocalF('B12', 150.24);
-  const boredAt = medsosLocalF('B12', 153.14);
-  const pastChipAt = medsosLocalF('B12', 154.26);
+  const rightChipAt = medsosLocalF('B12', 154.82);
+  const lastriMarkAt = medsosLocalF('B12', 157.78);
+  const bubbleAt = medsosLocalF('B12', 157.78);
+  const boredAt = medsosLocalF('B12', 160.76);
+  const pastChipAt = medsosLocalF('B12', 162.4);
 
   const sunsetOpacity = interpolate(f, [0, 300], [0, 1], {
     extrapolateLeft: 'clamp',
@@ -51,8 +53,8 @@ export const B12_TenangDiam: React.FC = () => {
   return (
     <AbsoluteFill>
       <TwinMapBg
-        zoomFrom={1.20}
-        zoomTo={1.24}
+        zoomFrom={1.06}
+        zoomTo={1.20}
         dim={0.1}
         dur={DUR}
         leftWalkers={LEFT_WALKERS}
@@ -97,6 +99,10 @@ export const B12_TenangDiam: React.FC = () => {
 
       <PixelSprite src="remaja_a_walk_0.png" x={150} y={470} w={32} h={52} />
 
+      {/* Bu Lastri berjaga di warung kiri; penanda saat namanya terucap */}
+      <PixelSprite src="lastri_walk_0.png" x={370} y={318} w={32} h={52} />
+      <NameMark at={lastriMarkAt} feetX={386} feetY={370} labelY={292} text="BU LASTRI" color="#A5E075" holdFrames={90} />
+
       {f >= boredAt ? (
         <PopIn at={boredAt} seed="b12-bored" origin="320px 456px">
           <PixelCard x={215} y={430} w={210} pad="10px 12px" borderColor={PX.amber}>
@@ -124,6 +130,9 @@ export const B12_TenangDiam: React.FC = () => {
 
       {/* === KANAN (WARUNG TETAP RAMAI) === */}
       <RadioWaves x={1104} y={278} color="#FFDC78" from={0} />
+
+      {/* Bu Lastri berjaga di warung kanan */}
+      <PixelSprite src="lastri_walk_0.png" x={1010} y={318} w={32} h={52} />
 
       {RIGHT_QUEUE.map((q, i) => (
         <PixelSprite

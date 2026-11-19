@@ -1,12 +1,13 @@
 import React from 'react';
-import {AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Easing, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {PopIn, SlideIn} from '../lib/paper/kit';
 import {medsosLocalF} from '../medsosPlan';
 import {PX, PixelCard, PixelChip, PixelSprite} from '../components/PixelUI';
 import {TwinMapBg} from '../components/TwinMapBg';
+import {NameMark} from '../components/NameMark';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 311;
+const DUR = 271;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -30,9 +31,10 @@ export const B08_Nadia: React.FC = () => {
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
 
-  const bgScale = interpolate(f, [0, DUR], [1.0, 1.04], {
+  const camScale = interpolate(f, [0, DUR], [1.0, 1.07], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
+    easing: Easing.inOut(Easing.sin),
   });
   const portraitEntrance = spring({
     frame: f,
@@ -44,15 +46,16 @@ export const B08_Nadia: React.FC = () => {
 
   const blink = f % 100 >= 95;
   const nadiaLeftSrc = blink
-    ? 'nadia_remaja_kiri_portrait_neutral.png'
-    : 'nadia_remaja_kiri_portrait_happy.png';
+    ? 'nadia_full_neutral.png'
+    : 'nadia_full_happy.png';
   const nadiaRightSrc = blink
-    ? 'nadia_remaja_kanan_portrait_neutral.png'
-    : 'nadia_remaja_kanan_portrait_happy.png';
+    ? 'nadia_full_neutral.png'
+    : 'nadia_full_happy.png';
 
-  const t1 = medsosLocalF('B08', 108.12);
-  const t2 = medsosLocalF('B08', 109.28);
-  const t3 = medsosLocalF('B08', 109.7);
+  const wiryoMarkAt = medsosLocalF('B08', 114.14);
+  const t1 = medsosLocalF('B08', 114.56);
+  const t2 = medsosLocalF('B08', 116.06);
+  const t3 = medsosLocalF('B08', 116.86);
 
   const activeChip =
     f >= t3
@@ -67,7 +70,7 @@ export const B08_Nadia: React.FC = () => {
     <AbsoluteFill>
       <TwinMapBg
         zoomFrom={1.02}
-        zoomTo={1.06}
+        zoomTo={1.08}
         dim={0.2}
         dur={DUR}
         leftWalkers={LEFT_WALKERS}
@@ -85,47 +88,56 @@ export const B08_Nadia: React.FC = () => {
           overflow: 'hidden',
         }}
       >
-        <Img
-          src={staticFile('sprites/bg_sunset_half.png')}
-          className="pixel-img"
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            width: 640,
-            height: 720,
-            objectFit: 'cover',
-            imageRendering: 'pixelated',
-            opacity: 0.9,
-            transform: `scale(${bgScale.toFixed(4)})`,
-            transformOrigin: '45% 50%',
-          }}
-        />
-
-        {/* Potret Wiryo kecil di belakang */}
+        {/* Kamera push-in separuh kiri */}
         <div
           style={{
             position: 'absolute',
-            left: 300,
-            top: 250 + portraitY * 0.7 + bob * 0.6,
-            width: 128,
-            height: 160,
+            inset: 0,
+            transform: `scale(${camScale.toFixed(4)})`,
+            transformOrigin: '151px 351px',
           }}
         >
-          <PixelSprite src="wiryo_kades_portrait_neutral.png" w={128} h={160} />
-        </div>
+          <Img
+            src={staticFile('sprites/bg_sunset_half_v2.png')}
+            className="pixel-img"
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              width: 640,
+              height: 720,
+              objectFit: 'cover',
+              imageRendering: 'pixelated',
+            }}
+          />
 
-        {/* Potret Nadia */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 56,
-            top: 210 + portraitY + bob,
-            width: 215,
-            height: 269,
-          }}
-        >
-          <PixelSprite src={nadiaLeftSrc} w={215} h={269} />
+          {/* Pak Wiryo full-body kecil di belakang (sprite sama dengan kanan) */}
+          <div
+            style={{
+              position: 'absolute',
+              left: 322,
+              top: 318 + portraitY * 0.7 + bob * 0.6,
+              width: 92,
+              height: 190,
+            }}
+          >
+            <PixelSprite src="wiryo_full_neutral.png" w={92} h={190} />
+          </div>
+
+          {/* Potret Nadia full-body */}
+          <div
+            style={{
+              position: 'absolute',
+              left: 76,
+              top: 204 + portraitY + bob,
+              width: 150,
+              height: 309,
+            }}
+          >
+            <PixelSprite src={nadiaLeftSrc} w={150} h={309} />
+          </div>
+
+          <NameMark at={wiryoMarkAt} feetX={368} feetY={508} labelY={262} text="PAK WIRYO" color="#A5E075" holdFrames={100} />
         </div>
 
         {/* Kartu nama kiri */}
@@ -150,47 +162,56 @@ export const B08_Nadia: React.FC = () => {
           overflow: 'hidden',
         }}
       >
-        <Img
-          src={staticFile('sprites/bg_sunset_half.png')}
-          className="pixel-img"
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            width: 640,
-            height: 720,
-            objectFit: 'cover',
-            imageRendering: 'pixelated',
-            opacity: 0.9,
-            transform: `scaleX(-1) scale(${bgScale.toFixed(4)})`,
-            transformOrigin: '55% 50%',
-          }}
-        />
-
-        {/* Potret Wiryo kecil di belakang */}
+        {/* Kamera push-in separuh kanan */}
         <div
           style={{
             position: 'absolute',
-            left: 212,
-            top: 250 + portraitY * 0.7 + bob * 0.6,
-            width: 128,
-            height: 160,
+            inset: 0,
+            transform: `scale(${camScale.toFixed(4)})`,
+            transformOrigin: '489px 351px',
           }}
         >
-          <PixelSprite src="wiryo_warga_portrait_neutral.png" w={128} h={160} />
-        </div>
+          <Img
+            src={staticFile('sprites/bg_sunset_half_v2b.png')}
+            className="pixel-img"
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              width: 640,
+              height: 720,
+              objectFit: 'cover',
+              imageRendering: 'pixelated',
+            }}
+          />
 
-        {/* Potret Nadia */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 369,
-            top: 210 + portraitY + bob,
-            width: 215,
-            height: 269,
-          }}
-        >
-          <PixelSprite src={nadiaRightSrc} w={215} h={269} />
+          {/* Pak Wiryo full-body kecil di belakang (sprite sama dengan kiri) */}
+          <div
+            style={{
+              position: 'absolute',
+              left: 226,
+              top: 318 + portraitY * 0.7 + bob * 0.6,
+              width: 92,
+              height: 190,
+            }}
+          >
+            <PixelSprite src="wiryo_full_neutral.png" w={92} h={190} />
+          </div>
+
+          {/* Potret Nadia full-body */}
+          <div
+            style={{
+              position: 'absolute',
+              left: 414,
+              top: 204 + portraitY + bob,
+              width: 150,
+              height: 309,
+            }}
+          >
+            <PixelSprite src={nadiaRightSrc} w={150} h={309} />
+          </div>
+
+          <NameMark at={wiryoMarkAt} feetX={272} feetY={508} labelY={262} text="PAK WIRYO" color="#6EC6E8" holdFrames={100} />
         </div>
 
         {/* Kartu nama kanan */}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Easing, Img, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {RadioWaves} from '../lib/paper/kit';
 import {Walker, evalWalker, type WalkerSpec} from './Walker';
 
@@ -438,11 +438,11 @@ export const TwinMapBg: React.FC<{
       : interpolate(f, [0, dur], [0, 1], {
           extrapolateLeft: 'clamp',
           extrapolateRight: 'clamp',
+          easing: Easing.inOut(Easing.sin),
         });
-  const baseSc = zoomFrom + (zoomTo - zoomFrom) * p;
-  const sc = baseSc * (1 + 0.1 * p);
-  const tx = panX[0] + (panX[1] - panX[0]) * p + 26 * p;
-  const ty = panY[0] + (panY[1] - panY[0]) * p - 14 * p;
+  const sc = zoomFrom + (zoomTo - zoomFrom) * p;
+  const tx = panX[0] + (panX[1] - panX[0]) * p + 12 * p;
+  const ty = panY[0] + (panY[1] - panY[0]) * p - 7 * p;
 
   return (
     <AbsoluteFill style={{overflow: 'hidden', backgroundColor: '#1B2A18'}}>

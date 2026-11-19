@@ -55,7 +55,7 @@ const CUTS: Record<string, CutSpec> = {
   B10: {kind: 'zoomThrough', x: 640, y: 360, scale: 3, frames: 8, align: 'mid'},
   B11: {kind: 'zoomThrough', x: 960, y: 330, scale: 3, frames: 8, align: 'mid'},
   B12: {kind: 'whip', blur: 28, frames: 8, align: 'mid'},
-  B13: {kind: 'pageTurn', style: 'curl', frames: 10, align: 'mid'},
+  B13: {kind: 'zoomThrough', x: 640, y: 360, scale: 3, frames: 8, align: 'mid'},
 };
 
 export const MedsosVideo: React.FC = () => {
@@ -65,12 +65,17 @@ export const MedsosVideo: React.FC = () => {
     extrapolateRight: 'clamp',
   });
 
+  const activeBeat = MEDSOS_BEATS.find(
+    (b) => f >= b.from && f < b.from + b.durationInFrames,
+  );
+  const fullscreenBeat = activeBeat?.id === 'B09'; // segmen penjelas netral 1 layar: tanpa garis pemisah
+
   return (
     <HudContext.Provider value={medsosHudStateAt}>
       <AbsoluteFill style={{backgroundColor: PX.bgDark}}>
         <PaperDefs />
         <CutSeries scenes={SCENES} cuts={CUTS} />
-        <SplitLine />
+        {fullscreenBeat ? null : <SplitLine />}
         <MedsosHud />
         {fadeBlack > 0 ? (
           <AbsoluteFill style={{backgroundColor: '#000', opacity: fadeBlack, zIndex: 90}} />

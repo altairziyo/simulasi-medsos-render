@@ -6,7 +6,7 @@ import {PX, PixelCard, PixelChip, PixelSprite} from '../components/PixelUI';
 import {TwinMapBg} from '../components/TwinMapBg';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 672;
+const DUR = 733;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -44,23 +44,23 @@ export const B01_Premis: React.FC = () => {
   const walkIdx = Math.floor(f / 8) % 4;
 
   const chips = [
-    {text: '100 WARGA vs 100 WARGA', at: medsosLocalF('B01', 7.94), x: 640, y: 108},
-    {text: 'JALAN SAMA LEBAR', at: medsosLocalF('B01', 9.7), x: 320, y: 150},
-    {text: 'SINYAL SAMA KUAT', at: medsosLocalF('B01', 11.38), x: 960, y: 150},
-    {text: 'PONSEL SAMA-SAMA ADA', at: medsosLocalF('B01', 14.84), x: 320, y: 566},
-    {text: 'SINYAL SAMA KENCANG', at: medsosLocalF('B01', 18.86), x: 960, y: 566},
+    {text: '100 WARGA vs 100 WARGA', at: medsosLocalF('B01', 8.04), x: 640, y: 108},
+    {text: 'JALAN SAMA LEBAR', at: medsosLocalF('B01', 10), x: 320, y: 150},
+    {text: 'SINYAL SAMA KUAT', at: medsosLocalF('B01', 11.68), x: 960, y: 150},
+    {text: 'PONSEL SAMA-SAMA ADA', at: medsosLocalF('B01', 15.06), x: 320, y: 566},
+    {text: 'SINYAL SAMA KENCANG', at: medsosLocalF('B01', 20.02), x: 960, y: 566},
   ];
 
-  const iconsAt = medsosLocalF('B01', 14.84);
-  const splitRuleAt = medsosLocalF('B01', 17.94);
+  const iconsAt = medsosLocalF('B01', 15.06);
+  const splitRuleAt = medsosLocalF('B01', 19.1);
   const ruleActive = f >= splitRuleAt;
   const goldGlowAlpha = 0.35 + 0.35 * (0.5 + 0.5 * Math.sin(f / 6));
 
   return (
     <AbsoluteFill>
       <TwinMapBg
-        zoomFrom={1.02}
-        zoomTo={1.18}
+        zoomFrom={1.03}
+        zoomTo={1.19}
         dim={0.12}
         dur={DUR}
         leftWalkers={LEFT_WALKERS}

@@ -6,9 +6,10 @@ import {FPS, medsosLocalF} from '../medsosPlan';
 import {PIXEL_FONT} from '../pixelFont';
 import {PX, PixelChip, PixelSprite, PixelStamp} from '../components/PixelUI';
 import {TwinMapBg} from '../components/TwinMapBg';
+import {NameMark} from '../components/NameMark';
 import type {WalkerSpec} from '../components/Walker';
 
-const DUR = 512;
+const DUR = 499;
 
 const LEFT_WALKERS: WalkerSpec[] = [
   {id: 'w1', sprite: 'warga_a', path: [[70, 330], [300, 330], [300, 215]], speed: 44, phase: 0.15},
@@ -38,16 +39,18 @@ const RIGHT_QUEUE: Array<{src: string; x: number; y: number; flipX?: boolean}> =
 export const B11_RamaiMeledak: React.FC = () => {
   const f = useCurrentFrame();
 
-  const cupAt = medsosLocalF('B11', 130.08);
-  const camAt = medsosLocalF('B11', 131.48);
-  const wavesAt = medsosLocalF('B11', 131.48);
-  const chatChipAt = medsosLocalF('B11', 132.16);
-  const viralAt = medsosLocalF('B11', 132.42);
-  const queueBaseAt = medsosLocalF('B11', 132.42);
-  const buyersChipAt = medsosLocalF('B11', 133.44);
-  const coinChipAt = medsosLocalF('B11', 135.08);
-  const nadiaAt = medsosLocalF('B11', 137.48);
-  const followersAt = medsosLocalF('B11', 140.48);
+  const cupAt = medsosLocalF('B11', 137.68);
+  const camAt = medsosLocalF('B11', 139.56);
+  const wavesAt = medsosLocalF('B11', 139.56);
+  const chatChipAt = medsosLocalF('B11', 139.8);
+  const viralAt = medsosLocalF('B11', 139.96);
+  const queueBaseAt = medsosLocalF('B11', 139.96);
+  const buyersChipAt = medsosLocalF('B11', 141.02);
+  const coinChipAt = medsosLocalF('B11', 143.68);
+  const nadiaAt = medsosLocalF('B11', 145.96);
+  const lastriMarkAt = medsosLocalF('B11', 139.56);
+  const nadiaMarkAt = medsosLocalF('B11', 147.72);
+  const followersAt = medsosLocalF('B11', 148.5);
 
   const followersCount = Math.round(useCount(followersAt, 90, 132));
   const nadiaFrame = Math.floor(f / 6) % 4;
@@ -56,9 +59,11 @@ export const B11_RamaiMeledak: React.FC = () => {
   return (
     <AbsoluteFill>
       <TwinMapBg
-        zoomFrom={1.06}
-        zoomTo={1.20}
+        zoomFrom={1.05}
+        zoomTo={1.22}
         dim={0.1}
+        panX={[0, -20]}
+        panY={[0, 8]}
         dur={DUR}
         leftWalkers={LEFT_WALKERS}
         rightWalkers={RIGHT_WALKERS}
@@ -90,6 +95,10 @@ export const B11_RamaiMeledak: React.FC = () => {
 
       {/* === AKSI KANAN (RAMAI MELEDAK) === */}
       <RadioWaves x={1104} y={278} color="#FFDC78" from={wavesAt} />
+
+      {/* Bu Lastri berjaga di warung kanan; penanda saat namanya terucap */}
+      <PixelSprite src="lastri_walk_0.png" x={1010} y={318} w={32} h={52} />
+      <NameMark at={lastriMarkAt} feetX={1026} feetY={370} labelY={292} text="BU LASTRI" color="#6EC6E8" holdFrames={90} />
 
       {/* Ikon kamera di atas dua posisi antrean */}
       {f >= camAt ? (
@@ -170,7 +179,7 @@ export const B11_RamaiMeledak: React.FC = () => {
         </PopIn>
       ) : null}
 
-      {/* Nadia menari di sawah kanan + tripod + ringlight + chip pengikut */}
+      {/* Nadia menari di lapangan kanan + tripod + ringlight + chip pengikut */}
       {f >= nadiaAt ? (
         <>
           <PopIn at={nadiaAt} seed="b11-nadia" origin="775px 190px">
@@ -184,6 +193,7 @@ export const B11_RamaiMeledak: React.FC = () => {
             />
             <PixelSprite src="prop_tripod.png" x={838} y={168} w={54} />
           </PopIn>
+          <NameMark at={nadiaMarkAt} feetX={777} feetY={258} labelY={284} text="NADIA" color="#6EC6E8" holdFrames={80} />
           <PopIn at={nadiaAt} seed="b11-followers" origin="775px 108px">
             <PixelChip
               text={`PENGIKUT ${followersCount}+`}
